@@ -64,22 +64,30 @@
     <script>
       // GitHub Pages SPA redirection
       (function() {
+        const isGitHubPages = window.location.hostname.includes('github.io');
         const path = window.location.pathname;
         const basePath = '/brisanet';
+        const hash = window.location.hash || '';
+        const search = window.location.search || '';
         
-        // Se estamos no GitHub Pages e a URL não começa com basePath
-        if (window.location.hostname.includes('github.io') && !path.startsWith(basePath)) {
-          const redirectPath = basePath + (path === '/' ? '' : path) + window.location.search + window.location.hash;
-          window.location.replace(redirectPath);
-          return;
+        // Se estamos no GitHub Pages
+        if (isGitHubPages) {
+          // Caso 1: Está na raiz do GitHub Pages (sem /brisanet/)
+          if (!path.startsWith(basePath)) {
+            // Redireciona para o path base mantendo qualquer rota após o #
+            window.location.replace(basePath + '/' + hash + search);
+            return;
+          }
+          
+          // Caso 2: Está em /brisanet/ mas com uma rota que deveria ser um hash
+          // Ex: /brisanet/faq deve virar /brisanet/#/faq
+          if (path !== basePath && path !== basePath + '/') {
+            const route = path.replace(basePath, '').replace(/^\//, '');
+            window.location.replace(basePath + '/#/' + route + search);
+            return;
+          }
         }
-        
-        // Para rotas do SPA, redireciona para a página principal com hash
-        if (path !== '/' && path !== basePath && path !== basePath + '/') {
-          const route = path.replace(basePath, '').replace(/^\//, '');
-          const newUrl = (window.location.hostname.includes('github.io') ? basePath : '') + '/#/' + route + window.location.search;
-          window.location.replace(newUrl);
-        }
+        // Caso não esteja no GitHub Pages, deixa o HashRouter lidar normalmente
       })();
     </script>
   </body>
