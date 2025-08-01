@@ -34,25 +34,41 @@
     <meta name="description" content="Planos empresariais Brisanet: soluções de internet para empresas de todos os portes." data-page="empresarial" />
     <meta name="description" content="FAQ Brisanet: tire suas dúvidas sobre planos, instalação e atendimento." data-page="faq" />
     -->
-    <script type="module" crossorigin src="/brisanet/assets/main-C1YTdq5r.js"></script>
+    <script type="module" crossorigin src="/brisanet/assets/main-COLQTNvm.js"></script>
     <link rel="stylesheet" crossorigin href="/brisanet/assets/main-C9DvIA3D.css">
   </head>
 
   <body>
     <div id="root"></div>
     
-    <!-- Script para corrigir referências de assets no GitHub Pages -->
+    <!-- Script para corrigir referências de assets no GitHub Pages ou domínio personalizado -->
     <script>
       (function() {
-        // Detecta se estamos no GitHub Pages
+        // Detecta o ambiente de execução
         const isGitHubPages = window.location.hostname.includes('github.io');
+        const isCustomDomain = window.location.hostname === 'ofertasdabrisanet.com.br' || 
+                              window.location.hostname.includes('ofertasdabrisanet');
         
-        if (isGitHubPages) {
-          // Corrige referências de assets que usam caminhos absolutos
-          const basePath = '/brisanet';
-          
-          // Função para corrigir URLs em tags meta e link
-          function fixAssetUrls() {
+        // Define o basePath com base no ambiente
+        let basePath = '';
+        
+        // Se estamos no GitHub Pages sem domínio personalizado, usa /brisanet
+        if (isGitHubPages && !isCustomDomain) {
+          basePath = '/brisanet';
+        }
+        
+        // Se estamos em um domínio personalizado mas ainda temos /brisanet/ na URL,
+        // precisamos corrigir os redirecionamentos
+        if (isCustomDomain && window.location.pathname.startsWith('/brisanet/')) {
+          // Redireciona para a mesma URL sem o prefixo /brisanet/
+          const newPath = window.location.pathname.replace('/brisanet', '');
+          window.location.replace(newPath + window.location.hash + window.location.search);
+          return;
+        }
+        
+        // Função para corrigir URLs em tags meta e link
+        function fixAssetUrls() {
+          if (basePath) {
             // Corrige URLs em tags link (CSS, favicon, etc)
             document.querySelectorAll('link[href^="/"]').forEach(link => {
               link.href = basePath + link.getAttribute('href');
@@ -68,13 +84,13 @@
               img.src = basePath + img.getAttribute('src');
             });
           }
-          
-          // Executa a correção após carregar a página
-          if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', fixAssetUrls);
-          } else {
-            fixAssetUrls();
-          }
+        }
+        
+        // Executa a correção após carregar a página
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', fixAssetUrls);
+        } else {
+          fixAssetUrls();
         }
       })();
     </script>

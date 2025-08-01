@@ -5,14 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ofertas Brisanet | Admin</title>
     <meta name="robots" content="noindex, nofollow" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="./favicon.ico" />
   </head>
   <body>
     <div id="root"></div>
     <script>
-      // GitHub Pages admin redirect
+      // GitHub Pages or custom domain admin redirect
       (function() {
-        const basePath = window.location.hostname.includes('github.io') ? '/brisanet' : '';
+        // Detecta o ambiente de execução
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const isCustomDomain = window.location.hostname === 'ofertasdabrisanet.com.br' || 
+                              window.location.hostname.includes('ofertasdabrisanet');
+        
+        // Define o basePath com base no ambiente
+        let basePath = '';
+        
+        // Se estamos no GitHub Pages sem domínio personalizado, usa /brisanet
+        if (isGitHubPages && !isCustomDomain) {
+          basePath = '/brisanet';
+        }
+        
         window.location.replace(`${basePath}/#/admin`);
       })();
     </script>

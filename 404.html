@@ -64,18 +64,33 @@
     <script>
       // SPA redirection para GitHub Pages ou domínio personalizado
       (function() {
+        // Detecta o ambiente de execução
         const isGitHubPages = window.location.hostname.includes('github.io');
+        const isCustomDomain = window.location.hostname === 'ofertasdabrisanet.com.br' || 
+                              window.location.hostname.includes('ofertasdabrisanet');
+        
         const path = window.location.pathname;
         const hash = window.location.hash || '';
         const search = window.location.search || '';
         
         // Define o basePath com base no ambiente
-        // Se for GitHub Pages sem domínio personalizado, usa /brisanet/
-        // Se for domínio personalizado ou ambiente local, usa /
-        const basePath = isGitHubPages ? '/brisanet' : '';
+        let basePath = '';
+        
+        // Se estamos no GitHub Pages sem domínio personalizado, usa /brisanet
+        if (isGitHubPages && !isCustomDomain) {
+          basePath = '/brisanet';
+        }
+        
+        // Caso 0: Domínio personalizado com /brisanet/ no caminho (erro comum)
+        if (isCustomDomain && path.startsWith('/brisanet/')) {
+          // Redireciona para a mesma URL sem o prefixo /brisanet/
+          const newPath = path.replace('/brisanet', '');
+          window.location.replace(newPath + hash + search);
+          return;
+        }
         
         // Caso 1: GitHub Pages - redirecionar URLs sem o basePath correto
-        if (isGitHubPages && !path.startsWith(basePath)) {
+        if (isGitHubPages && !isCustomDomain && !path.startsWith(basePath)) {
           window.location.replace(basePath + '/' + hash + search);
           return;
         }
