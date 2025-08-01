@@ -26,7 +26,7 @@
     <meta name="twitter:site" content="@BrisanetOficial" />
 
     <!-- Favicon -->
-    <link rel="icon" href="/brisanet/favicon.ico" />
+    <link rel="icon" href="/brisanet/assets/favicon-D63nPy4Y.ico" />
 
     <!-- Exemplo de meta para páginas internas (SPA: pode ser ajustado via React Helmet) -->
     <!--
@@ -40,5 +40,43 @@
 
   <body>
     <div id="root"></div>
+    
+    <!-- Script para corrigir referências de assets no GitHub Pages -->
+    <script>
+      (function() {
+        // Detecta se estamos no GitHub Pages
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        
+        if (isGitHubPages) {
+          // Corrige referências de assets que usam caminhos absolutos
+          const basePath = '/brisanet';
+          
+          // Função para corrigir URLs em tags meta e link
+          function fixAssetUrls() {
+            // Corrige URLs em tags link (CSS, favicon, etc)
+            document.querySelectorAll('link[href^="/"]').forEach(link => {
+              link.href = basePath + link.getAttribute('href');
+            });
+            
+            // Corrige URLs em tags meta com content que contém URLs
+            document.querySelectorAll('meta[content^="/"]').forEach(meta => {
+              meta.content = basePath + meta.getAttribute('content');
+            });
+            
+            // Corrige URLs em tags img
+            document.querySelectorAll('img[src^="/"]').forEach(img => {
+              img.src = basePath + img.getAttribute('src');
+            });
+          }
+          
+          // Executa a correção após carregar a página
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', fixAssetUrls);
+          } else {
+            fixAssetUrls();
+          }
+        }
+      })();
+    </script>
   </body>
 </html>
