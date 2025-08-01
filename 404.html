@@ -60,6 +60,27 @@
     </div>
 
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="./src/main.tsx"></script>
+    <script>
+      // GitHub Pages SPA redirection
+      (function() {
+        const path = window.location.pathname;
+        const basePath = '/brisanet';
+        
+        // Se estamos no GitHub Pages e a URL não começa com basePath
+        if (window.location.hostname.includes('github.io') && !path.startsWith(basePath)) {
+          const redirectPath = basePath + (path === '/' ? '' : path) + window.location.search + window.location.hash;
+          window.location.replace(redirectPath);
+          return;
+        }
+        
+        // Para rotas do SPA, redireciona para a página principal com hash
+        if (path !== '/' && path !== basePath && path !== basePath + '/') {
+          const route = path.replace(basePath, '').replace(/^\//, '');
+          const newUrl = (window.location.hostname.includes('github.io') ? basePath : '') + '/#/' + route + window.location.search;
+          window.location.replace(newUrl);
+        }
+      })();
+    </script>
   </body>
 </html>
