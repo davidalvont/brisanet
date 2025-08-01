@@ -62,32 +62,32 @@
     <div id="root"></div>
     <script type="module" src="./src/main.tsx"></script>
     <script>
-      // GitHub Pages SPA redirection
+      // SPA redirection para GitHub Pages ou domínio personalizado
       (function() {
         const isGitHubPages = window.location.hostname.includes('github.io');
         const path = window.location.pathname;
-        const basePath = '/brisanet';
         const hash = window.location.hash || '';
         const search = window.location.search || '';
         
-        // Se estamos no GitHub Pages
-        if (isGitHubPages) {
-          // Caso 1: Está na raiz do GitHub Pages (sem /brisanet/)
-          if (!path.startsWith(basePath)) {
-            // Redireciona para o path base mantendo qualquer rota após o #
-            window.location.replace(basePath + '/' + hash + search);
-            return;
-          }
-          
-          // Caso 2: Está em /brisanet/ mas com uma rota que deveria ser um hash
-          // Ex: /brisanet/faq deve virar /brisanet/#/faq
-          if (path !== basePath && path !== basePath + '/') {
-            const route = path.replace(basePath, '').replace(/^\//, '');
-            window.location.replace(basePath + '/#/' + route + search);
-            return;
-          }
+        // Define o basePath com base no ambiente
+        // Se for GitHub Pages sem domínio personalizado, usa /brisanet/
+        // Se for domínio personalizado ou ambiente local, usa /
+        const basePath = isGitHubPages ? '/brisanet' : '';
+        
+        // Caso 1: GitHub Pages - redirecionar URLs sem o basePath correto
+        if (isGitHubPages && !path.startsWith(basePath)) {
+          window.location.replace(basePath + '/' + hash + search);
+          return;
         }
-        // Caso não esteja no GitHub Pages, deixa o HashRouter lidar normalmente
+        
+        // Caso 2: Qualquer ambiente - URL que deveria ser um hash (SPA route)
+        // Ex: /faq deve virar /#/faq, ou /brisanet/faq deve virar /brisanet/#/faq
+        if (path !== '/' && path !== basePath && path !== basePath + '/') {
+          // Extrai a parte da rota após o basePath
+          const route = path.replace(basePath, '').replace(/^\//, '');
+          window.location.replace(basePath + '/#/' + route + search);
+          return;
+        }
       })();
     </script>
   </body>
