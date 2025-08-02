@@ -8,12 +8,31 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'AW-11127318292');
+      gtag('config', 'AW-11127318292/vdBLCIPQ0f0aEJTO9bkp', { 'phone_conversion_number': '0800 878 3344' }); // Page view
+      gtag('config', 'AW-11127318292/nkuHCPbr4f0aEJTO9bkp'); // Form submission
+      
+      // Definição das funções de conversão globais
+      // Função para registrar visualização de página
+      window.trackPageView = function() {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-11127318292/vdBLCIPQ0f0aEJTO9bkp'
+        });
+      };
+      
+      // Função para registrar envio de formulário
+      window.trackFormSubmission = function() {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-11127318292/nkuHCPbr4f0aEJTO9bkp',
+          'value': 1.0,
+          'currency': 'BRL'
+        });
+      };
     </script>
     
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ofertas Brisanet | Internet Fibra Óptica, Combos e Planos Empresariais</title>
-    <meta name="description" content="Ofertas exclusivas Brisanet: internet fibra óptica, combos, planos empresariais e atendimento especializado. Contrate online e aproveite a melhor conexão!" />
+    <meta name="description" content="Ofertas exclusivas Brisanet: internet fibra óptica, Brisanet combos, Brisanet planos: planos residenciais e empresariais e atendimento especializado. Contrate online e aproveite a melhor conexão!" />
     <meta name="author" content="Brisanet" />
     <meta name="keywords" content="Brisanet, internet fibra óptica, planos de internet, combos, planos empresariais, ofertas, contratar internet, Ceará, Nordeste, banda larga, Wi-Fi grátis, instalação gratuita" />
     <meta name="robots" content="index, follow" />
@@ -21,7 +40,7 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content="Ofertas Brisanet | Internet Fibra Óptica, Combos e Planos Empresariais" />
-    <meta property="og:description" content="Ofertas exclusivas Brisanet: internet fibra óptica, combos, planos empresariais e atendimento especializado. Contrate online e aproveite a melhor conexão!" />
+    <meta property="og:description" content="Ofertas exclusivas Brisanet: internet fibra óptica, Brisanet combos, Brisanet planos: planos residenciais e empresariais e atendimento especializado. Contrate online e aproveite a melhor conexão!" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.ofertasdabrisanet.com.br/" />
     <meta property="og:image" content="/assets/og-banner.jpg" />
@@ -30,7 +49,7 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Ofertas Brisanet | Internet Fibra Óptica, Combos e Planos Empresariais" />
-    <meta name="twitter:description" content="Ofertas exclusivas Brisanet: internet fibra óptica, combos, planos empresariais e atendimento especializado." />
+    <meta name="twitter:description" content="Ofertas exclusivas Brisanet: internet fibra óptica, Brisanet combos, Brisanet planos: planos residenciais e empresariais e atendimento especializado. Contrate online e aproveite a melhor conexão!" />
     <meta name="twitter:image" content="/assets/og-banner.jpg" />
     <meta name="twitter:site" content="@BrisanetOficial" />
 
@@ -43,7 +62,7 @@
     <meta name="description" content="Planos empresariais Brisanet: soluções de internet para empresas de todos os portes." data-page="empresarial" />
     <meta name="description" content="FAQ Brisanet: tire suas dúvidas sobre planos, instalação e atendimento." data-page="faq" />
     -->
-    <script type="module" crossorigin src="/assets/main-CNz3D3Oy.js"></script>
+    <script type="module" crossorigin src="/assets/main-CglIKaM7.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/main-CHjk6xty.css">
   </head>
 
